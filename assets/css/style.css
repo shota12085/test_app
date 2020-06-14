@@ -1,0 +1,38 @@
+.container{
+  padding: 40px 20px!important;
+}
+h2{
+  width: 900px;
+  margin: 0 auto;
+}
+.news-topic{
+  width: 900px;
+  padding: 10px 15px;
+  margin: 20px auto 0;
+  background-color: #f9f9f9;
+  border: 2px solid #eee;
+}
+.news-create{
+  width: 130px;
+  text-align: center;
+  padding: 4px;
+  margin: 3px;
+  background-color: #ccc;
+  display: block;
+}
+.btn-default{
+  margin-top: 10px;
+  background-color: #ddd !important;
+}
+.pull-left{
+  float: left;
+  margin-top: 0 !important;
+  margin-right: 15px;
+}
+.form-top{
+  width: 900px;
+  margin: 0 auto;
+}
+.form-control{
+  width: 600px !important;
+}
