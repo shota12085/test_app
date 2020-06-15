@@ -5,23 +5,40 @@ h2{
   width: 900px;
   margin: 0 auto;
 }
-.news-topic{
-  width: 900px;
-  padding: 10px 15px;
-  margin: 20px auto 0;
-  background-color: #f9f9f9;
-  border: 2px solid #eee;
+.row{
+  margin-bottom: 40px;
+}
+.news-title{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 3px 3px 5px;
 }
 .news-create{
   width: 130px;
-  text-align: center;
+  text-align: left;
   padding: 4px;
   margin: 3px;
   background-color: #ccc;
   display: block;
 }
+/* .text-limiter{
+  overflow: scroll;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  margin-bottom: 5px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+} */
+.news-flex{
+  display: flex;
+  align-items: center;
+}
+.category-name{
+  margin-left: 15px;
+}
 .btn-default{
-  margin-top: 10px;
+  margin-top: 30px ;
   background-color: #ddd !important;
 }
 .pull-left{
@@ -35,4 +52,7 @@ h2{
 }
 .form-control{
   width: 600px !important;
+}
+.form-text{
+  height: 400px !important;
 }

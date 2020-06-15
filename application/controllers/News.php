@@ -6,6 +6,7 @@ class News extends CI_Controller {
                 parent::__construct();
                 $this->load->model('news_model');
                 $this->load->helper('url_helper');
+                $this->load->helper('text');
         }
 
         public function index()
@@ -13,16 +14,17 @@ class News extends CI_Controller {
           $data['news'] = $this->news_model->get_news();
           $data['title'] = 'News Topic';
           // print_r($data['news']);
-  
           $this->load->view('templates/header', $data);
           $this->load->view('news/index', $data);
           $this->load->view('templates/footer');
         }
 
-        public function view($id)
+        public function show($id)
         {
         $data['news'] = $this->news_model->get_news($id);
-
+        $data['category'] = $this->news_model->get_category($data['news']);
+        $data['comments'] = $this->comment_model->get_comment($id);
+        // print_r($data['category']);
         if (empty($data['news']))
         {
                 show_404();
@@ -31,12 +33,14 @@ class News extends CI_Controller {
         $data['title'] = $data['news']['title'];
 
         $this->load->view('templates/header', $data);
-        $this->load->view('news/view', $data);
+        $this->load->view('news/show', $data);
         $this->load->view('templates/footer');
         }
 
         public function create(){
           $data['title'] = 'Create News';
+
+          $data['categories'] = $this->news_model->get_categories();
 
           $this->form_validation->set_rules('title', 'Title', 'required');
           $this->form_validation->set_rules('text', 'Text', 'required');
@@ -46,14 +50,35 @@ class News extends CI_Controller {
             $this->load->view('news/create', $data);
             $this->load->view('templates/footer', $data);
           }else{
-            $this->news_model->create_news();
+            // upload image
+            $config['upload_path'] = './assets/images/news';
+            $config['allowed_types'] = "gif|jpg|png|jpeg|pdf";
+            $config['encrypt_name'] = TRUE;
+            $config['max_size'] = '2048';
+            // $config['max_width'] = '500';
+            // $config['max_height'] = '500';
+
+            $this->load->library('upload', $config);
+
+            if(!$this->upload->do_upload('userfile')){
+              $errors = array('error' => $this->upload->display_errors());
+              $image = 'noimage.png';
+            }else{
+              $data = array('upload_data' => $this->upload->data());
+              $image = $data['upload_data']['file_name'];
+              // print_r($data['upload_data']['file_name']);
+            }
+
+            $this->news_model->create_news($image);
             redirect('news');
           }
         }
 
         public function edit($id){
           $data['news'] = $this->news_model->get_news($id);
-
+          $data['categories'] = $this->news_model->get_categories();
+          // $data['set'] = $this->news_model->get_category($data['news']);
+          // print_r($data['set']);
           if (empty($data['news']))
           {
                   show_404();
